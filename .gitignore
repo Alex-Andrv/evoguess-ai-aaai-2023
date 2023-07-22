@@ -1,0 +1,7 @@
+# Builded documentation
+docs/build
+data/experiments
+
+tools/
+examples/logs
+examples/solvers
