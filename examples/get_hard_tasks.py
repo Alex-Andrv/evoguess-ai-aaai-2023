@@ -12,7 +12,6 @@ from instance.module.variables import Indexes, make_backdoor
 # other imports
 from core.impl import Combine
 from output.impl import OptimizeLogger
-from typings.work_path import WorkPath
 from executor.impl import ProcessExecutor
 
 def get_hard_tasks(backdoor_dir: str, cnf_file: CNF, logs_path):
