@@ -37,16 +37,16 @@ if __name__ == '__main__':
 
         new_clauses += mini_clauses
 
-    out = open(out_problem_name, 'w')
-    clauses, var, clause_size = parse_cnf(open(original_problem, 'r'))
+    out = open(data_path.to_file(out_problem_name), 'w')
+    clauses, var, clause_size = parse_cnf(open(data_path.to_file(original_problem), 'r'))
     out.write(f"p {var} {clause_size + len(new_clauses)} \n")
 
     for clause in clauses:
-        print_clause(clause)
+        print_clause(clause, out)
 
     for clause in new_clauses:
         if only_unit_clauses:
             if len(clause) == 1:
-                print_clause(clause)
+                print_clause(clause, out)
         else:
-            print_clause(clause)
+            print_clause(clause, out)
