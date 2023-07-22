@@ -15,7 +15,7 @@ from output.impl import OptimizeLogger
 from typings.work_path import WorkPath
 from executor.impl import ProcessExecutor
 
-def get_hard_tasks(backdoor_dir: str, problem_name: str):
+def get_hard_tasks(backdoor_dir: str, cnf_file: CNF, logs_path):
     directory = 'examples'
 
     all_hard_tasks = []
@@ -23,18 +23,16 @@ def get_hard_tasks(backdoor_dir: str, problem_name: str):
     for filename in os.listdir(os.path.join(directory, backdoor_dir)):
         input = open(os.path.join(directory, backdoor_dir, filename), 'r')
         str_backdoors = [input.readline().strip()]
+        input.close()
         backdoors = [
             make_backdoor(Indexes(from_string=str_vars))
             for str_vars in str_backdoors
         ]
         print(filename)
-        root_path = WorkPath('examples')
-        data_path = root_path.to_path('data')
-        cnf_file = data_path.to_file(problem_name)
-        logs_path = root_path.to_path('logs', 'aaai-2023')
+
         combine = Combine(
             instance=Instance(
-                encoding=CNF(from_file=cnf_file)
+                encoding=cnf_file
             ),
             measure=SolvingTime(),
             solver=pysat.Glucose3(),
