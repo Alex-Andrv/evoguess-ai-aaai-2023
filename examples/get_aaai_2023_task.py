@@ -39,7 +39,11 @@ if __name__ == '__main__':
 
     out = open(data_path.to_file(out_problem_name), 'w')
     clauses, var, clause_size = parse_cnf(open(data_path.to_file(original_problem), 'r'))
-    out.write(f"p {var} {clause_size + len(new_clauses)} \n")
+
+    if only_unit_clauses:
+        out.write(f"p cnf {var} {clause_size + len(list(filter(lambda cnf: len(cnf) == 1, new_clauses)))} \n")
+    else:
+        out.write(f"p cnf {var} {clause_size + len(new_clauses)} \n")
 
     for clause in clauses:
         print_clause(clause, out)
